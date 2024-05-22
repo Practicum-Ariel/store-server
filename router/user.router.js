@@ -4,9 +4,9 @@ const
 
 const userService = require('../BL/user.service')
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     try {
-        let user = userService.addNewUser(req.body)
+        let user = await userService.addNewUser(req.body)
         res.send(user)
     }
     catch (err) {
@@ -14,14 +14,14 @@ router.post('/', (req, res) => {
     }
 })
 
-router.get('/', (req, res) => {
-    const users = userService.getAllUsers()
+router.get('/',async (req, res) => {
+    const users = await userService.getAllUsers()
     res.send(users)
 })
 
-router.get('/:email', (req, res) => {
+router.get('/:email', async (req, res) => {
     try {
-        let user = userService.getSingleUser(req.params.email)
+        let user = await userService.getSingleUser(req.params.email)
         if (!user) throw { code: 404, message: "user is not exist" }
         res.send(user)
     }

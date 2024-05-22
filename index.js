@@ -11,6 +11,9 @@ const
 app.use(cors())
 app.use(express.json())
 
+const db = require('./DL/db')
+db.connect()
+
 const userRouter =  require('./router/user.router')
 app.use('/user',userRouter)
 

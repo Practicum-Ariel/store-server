@@ -1,32 +1,32 @@
-const  userController = require('../DL/user.controller')
+const userController = require('../DL/user.controller')
 
-function getAllUsers() {
-    return userController.read()
+async function getAllUsers() {
+    return await userController.read()
 }
 
-function getSingleUser(email) {
+async function getSingleUser(email) {
     if (!email) throw { message: "invalid email" }
 
-    return userController.readOne(email)
+    return await userController.readOne({ email: email })
     // 
 }
 
-function addNewUser(body) {
+async function addNewUser(body) {
     let { email, password, fullName } = body
 
-    let user = getSingleUser(email)
+    let user = await getSingleUser(email)
     if (user) throw { message: "user is exist" }
-    if (password.length < 6) throw { message: "password is incorrect" }
-    
-     
-    user = { email, password, fullName}
-    let userDB = userController.create(user)
+    if (password && password.length < 6) throw { message: "password is incorrect" }
+
+
+    user = { email, password, fullName }
+    let userDB = await userController.create(user)
 
     return userDB
 }
 
-function updateUser(body) {}
+function updateUser(body) { }
 
-function deleteUser(body) {}
+function deleteUser(body) { }
 
 module.exports = { getAllUsers, getSingleUser, addNewUser }

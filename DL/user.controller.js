@@ -1,17 +1,16 @@
 const userModel = require('./user.model')
 
-function create(data) {
-    data.created = new Date()
-    userModel.push(data)
-    return data
+async function create(data) {
+   return await userModel.create(data)
 
 }
-function read(filter) {
-    if(!filter) return userModel.filter(u => true)
+async function read(filter={}) {
+    return await userModel.find(filter)
+
 }
 
-function readOne(email) {
-    return userModel.find(u=>u.email===email);
+async function readOne(filter) { 
+    return await  userModel.findOne(filter)
 }
 
 function update() { }
